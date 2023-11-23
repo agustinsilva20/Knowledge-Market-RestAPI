@@ -14,7 +14,24 @@ exports.getuser_by_email = async function (mail) {
     }
     
 }
+exports.loginUser = async function (mail, password) {
+    user = await this.getuser_by_email(mail)
 
+    // Si no existe el usuario envio error
+    if(!user){
+        return {"error": "El usuario no existe"}
+    }
+
+    // Verifico la contrasena
+    console.log(user)
+    passwordHash = user.PasswordHash
+    var passwordIsValid = bcrypt.compareSync(password, passwordHash);
+    if (!passwordIsValid) return {"error": "La password es incorrecta"}
+
+    return {"user": user, "error": null};
+
+
+}
 exports.createUser = async function (new_user) {
     // Creating a new Mongoose Object by using the new keyword
     var hashedPassword = bcrypt.hashSync(new_user.password, 8);

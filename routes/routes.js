@@ -7,6 +7,7 @@ var UserController = require('../controllers/user_controllers');
 
 
 router.post('/crearcuenta', UserController.createUser)
+router.post('/login', UserController.loginUser)
 
 
 
