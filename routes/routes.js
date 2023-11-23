@@ -13,6 +13,8 @@ router.post('/login', UserController.loginUser)
 
 // Rutas de Anuncios
 router.post('/crearanuncio', Authorization, AnunciosController.createAnuncio)
+router.post('/eliminaranuncio', Authorization, AnunciosController.eliminarAnuncio)
+router.get('/getanuncios', Authorization, AnunciosController.getAnuncios)
 
 
 
