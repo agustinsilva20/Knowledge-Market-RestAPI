@@ -14,6 +14,8 @@ router.post('/login', UserController.loginUser)
 // Rutas de Anuncios
 router.post('/crearanuncio', Authorization, AnunciosController.createAnuncio)
 router.post('/eliminaranuncio', Authorization, AnunciosController.eliminarAnuncio)
+router.post('/despublicaranuncio', Authorization, AnunciosController.despublicarAnuncio)
+router.post('/republicaranuncio', Authorization, AnunciosController.republicarAnuncio)
 router.get('/getanuncios', Authorization, AnunciosController.getAnuncios)
 
 

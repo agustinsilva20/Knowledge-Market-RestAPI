@@ -54,7 +54,7 @@ exports.eliminarAnuncio = async function (req, res, next) {
         profesorID:req.userId
     }
     try{
-        var new_anuncio = await Service.eliminarAnuncio(Anuncio)
+        var new_anuncio = await Service.changeEstado(Anuncio, "ELIMINADO")
         if (new_anuncio.error) {
             return res.status(400).json({status: 400, message: new_anuncio.error})
         }
@@ -63,6 +63,51 @@ exports.eliminarAnuncio = async function (req, res, next) {
     } catch (e) {
         console.log(e)
         return res.status(400).json({status: 400, message: "No se pudo eliminar el Anuncio"})
+
+    }
+
+
+}
+
+
+exports.despublicarAnuncio = async function (req, res, next) {
+    console.log("[INFO] Eliminando anuncio") 
+    var Anuncio = {
+        cursoID: req.body.cursoID,
+        profesorID:req.userId
+    }
+    try{
+        var new_anuncio = await Service.changeEstado(Anuncio, "NOTPUBLISH")
+        if (new_anuncio.error) {
+            return res.status(400).json({status: 400, message: new_anuncio.error})
+        }
+        return res.status(200).json({status: 200, message: "Anuncio Despublicado con exito"})
+
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo despublicar el Anuncio"})
+
+    }
+
+
+}
+
+exports.republicarAnuncio = async function (req, res, next) {
+    console.log("[INFO] Republicando anuncio") 
+    var Anuncio = {
+        cursoID: req.body.cursoID,
+        profesorID:req.userId
+    }
+    try{
+        var new_anuncio = await Service.changeEstado(Anuncio, "PUBLICADO")
+        if (new_anuncio.error) {
+            return res.status(400).json({status: 400, message: new_anuncio.error})
+        }
+        return res.status(200).json({status: 200, message: "Anuncio Republicado con exito"})
+
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo respublicar el Anuncio"})
 
     }
 

@@ -26,7 +26,7 @@ exports.createAnuncio = async function (new_anuncio) {
 }
 
 
-exports.eliminarAnuncio = async function (new_anuncio) {
+exports.changeEstado = async function (new_anuncio, estado) {
     
     try {
         // Condiciones previas
@@ -44,7 +44,7 @@ exports.eliminarAnuncio = async function (new_anuncio) {
         }
 
         // Elimino el anuncio
-        const query = `UPDATE Curso SET Curso.ESTADO = 'ELIMINADO' WHERE Curso.CURSOID = ${new_anuncio.cursoID}`;
+        const query = `UPDATE Curso SET Curso.ESTADO = "${estado}" WHERE Curso.CURSOID = ${new_anuncio.cursoID}`;
         const result = await db.run_query(query)
 
         return {"msg": "Anuncio Eliminado con exito", error: null};
@@ -62,3 +62,4 @@ exports.getAnuncios = async function () {
     return {"msg": result, error: null};
 
 }
+
