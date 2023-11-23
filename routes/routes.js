@@ -16,6 +16,7 @@ router.post('/crearanuncio', Authorization, AnunciosController.createAnuncio)
 router.post('/eliminaranuncio', Authorization, AnunciosController.eliminarAnuncio)
 router.post('/despublicaranuncio', Authorization, AnunciosController.despublicarAnuncio)
 router.post('/republicaranuncio', Authorization, AnunciosController.republicarAnuncio)
+router.post('/updateanuncio', Authorization, AnunciosController.updateAnuncio)
 router.get('/getanuncios', Authorization, AnunciosController.getAnuncios)
 
 

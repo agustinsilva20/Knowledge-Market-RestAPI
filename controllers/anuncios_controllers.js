@@ -111,5 +111,33 @@ exports.republicarAnuncio = async function (req, res, next) {
 
     }
 
+}
+
+exports.updateAnuncio = async function (req, res, next) {
+    console.log("[INFO] Actualizando anuncio") 
+    var Anuncio = {
+        categoria: req.body.categoria,
+        frecuencia: req.body.frecuencia,
+        veces: req.body.veces,
+        modalidad: req.body.modalidad,
+        descripcion: req.body.descripcion,
+        precio: req.body.precio,
+        profesorID:req.userId,
+        cursoID: req.body.cursoID,
+    }
+
+
+    try{
+        var new_anuncio = await Service.updateAnuncio(Anuncio)
+        if (new_anuncio.error) {
+            return res.status(400).json({status: 400, message: new_anuncio.error})
+        }
+        return res.status(200).json({status: 200, message: "Anuncio actualizado con exito"})
+
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo Actualizar el Anuncio"})
+
+    }
 
 }
