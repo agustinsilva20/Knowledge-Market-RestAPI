@@ -28,7 +28,13 @@ exports.loginUser = async function (mail, password) {
     var passwordIsValid = bcrypt.compareSync(password, passwordHash);
     if (!passwordIsValid) return {"error": "La password es incorrecta"}
 
-    return {"user": user, "error": null};
+    // Genero el token
+    var token = jwt.sign({
+        id: user.ProfesorID
+    }, process.env.SECRET, {
+        expiresIn: 86400 // expires in 24 hours
+    });
+    return {"user": user, "error": null, "token":token};
 
 
 }

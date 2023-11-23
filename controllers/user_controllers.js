@@ -52,6 +52,8 @@ exports.loginUser = async function (req, res, next) {
             return res.status(400).json({status: 400, message: login_user.error})
         }
         user = login_user.user
+        // Me falta enviarle el token al cliente
+        token = login_user.token
         return res.status(200).json({status: 200, message: "Logeado correctamente"})
 
     } catch (e) {
