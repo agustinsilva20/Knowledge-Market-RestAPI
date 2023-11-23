@@ -1,4 +1,4 @@
-var Service = require('../services/services');
+var Service = require('../services/user_services');
 
 // Saving the context of this module inside the _the variable
 _this = this;
