@@ -34,6 +34,7 @@ exports.loginUser = async function (mail, password) {
     }, process.env.SECRET, {
         expiresIn: 86400 // expires in 24 hours
     });
+    console.log(token)
     return {"user": user, "error": null, "token":token};
 
 

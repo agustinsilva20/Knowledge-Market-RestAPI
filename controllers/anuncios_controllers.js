@@ -1,0 +1,32 @@
+var Service = require('../services/anuncios_services');
+
+exports.createAnuncio = async function (req, res, next) {
+
+    console.log("[INFO] Creando nuevo anuncio")
+
+    var Anuncio = {
+        categoria: req.body.categoria,
+        frecuencia: req.body.frecuencia,
+        veces: req.body.veces,
+        modalidad: req.body.modalidad,
+        descripcion: req.body.descripcion,
+        precio: req.body.precio,
+        profesorID:req.userId 
+    }
+
+
+    try{
+        var new_anuncio = await Service.createAnuncio(Anuncio)
+        if (new_anuncio.error) {
+            return res.status(400).json({status: 400, message: new_anuncio.error})
+        }
+        return res.status(200).json({status: 200, message: "Anuncio creado con exito"})
+
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo crear el Anuncio"})
+
+    }
+
+
+}
