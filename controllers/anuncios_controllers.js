@@ -16,6 +16,23 @@ exports.getAnuncios = async function (req, res, next) {
 
     }
 }
+
+exports.getAnunciosByProfesor = async function (req, res, next) {
+
+    console.log("[INFO] Obteniendo anuncios")
+    try{
+        var anuncios = await Service.getAnunciosByProfesor(req.userId)
+        if (anuncios.error) {
+            return res.status(400).json({status: 400, message: anuncios.error})
+        }
+        return res.status(200).json({status: 200, message: anuncios.msg})
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo obtener los Anuncios"})
+
+    }
+}
+
 exports.createAnuncio = async function (req, res, next) {
 
     console.log("[INFO] Creando nuevo anuncio")
