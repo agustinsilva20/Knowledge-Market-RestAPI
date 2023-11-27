@@ -101,3 +101,18 @@ exports.updateAnuncio = async function (new_anuncio) {
     }
 }
 
+exports.getAnuncioInfo = async function (cursoID) {
+    // Obtengo info del curso
+    const query = `SELECT * FROM Curso WHERE CURSOID = ${cursoID}`;
+    const result = await db.run_query(query)
+
+    // Obtengo comentarios
+    const query2 = `SELECT Nombre, Comentario, Calificacion FROM Comentario WHERE CursoID = ${cursoID} AND Estado = 'PUBLICADO'`;
+    const result2 = await db.run_query(query2)
+
+
+    return {"info": result, comentarios: result2, error: null};
+
+
+}
+

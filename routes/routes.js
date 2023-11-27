@@ -19,7 +19,9 @@ router.post('/despublicaranuncio', Authorization, AnunciosController.despublicar
 router.post('/republicaranuncio', Authorization, AnunciosController.republicarAnuncio)
 router.post('/updateanuncio', Authorization, AnunciosController.updateAnuncio)
 router.get('/getanuncios', AnunciosController.getAnuncios)
+router.get("/getanuncioinfo/:idcurso", AnunciosController.getAnuncioInfo)
 router.get('/getanunciosbyprofesor', Authorization, AnunciosController.getAnunciosByProfesor)
+
 
 // Rutas de calificaciones
 router.get('/getcalificaciones/:id', Authorization, CalificacionesController.getCalificaciones)

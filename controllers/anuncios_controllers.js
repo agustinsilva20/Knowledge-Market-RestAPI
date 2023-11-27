@@ -17,6 +17,23 @@ exports.getAnuncios = async function (req, res, next) {
     }
 }
 
+exports.getAnuncioInfo = async function (req, res, next) {
+
+    console.log("[INFO] Obteniendo anuncio")
+    const id = req.params.idcurso
+    try{
+        var anuncio = await Service.getAnuncioInfo(id)
+        if (anuncio.error) {
+            return res.status(400).json({status: 400, message: anuncio.error})
+        }
+        return res.status(200).json({status: 200, info: anuncio.info, comentarios: anuncio.comentarios})
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo obtener los Anuncios"})
+
+    }
+}
+
 exports.getAnunciosByProfesor = async function (req, res, next) {
 
     console.log("[INFO] Obteniendo anuncios")
