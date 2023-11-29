@@ -6,6 +6,7 @@ var Authorization = require('../auth/auth');
 var UserController = require('../controllers/user_controllers');
 var AnunciosController = require('../controllers/anuncios_controllers');
 var CalificacionesController = require('../controllers/calificaciones_contollers');
+var ContratacionesController = require('../controllers/contrataciones_controllers');
 
 
 // Rutas de Cuenta
@@ -28,6 +29,14 @@ router.get('/getcalificaciones/:id', Authorization, CalificacionesController.get
 router.post('/createcalificacion/:idcurso', CalificacionesController.createCalificacion)
 router.post('/aceptarCalificacion/:idCalificacion', Authorization, CalificacionesController.aceptarCalificacion)
 router.post('/rechazarCalificacion/:idCalificacion', Authorization, CalificacionesController.rechazarCalificacion)
+
+// Rutas de Alumnos
+router.post("/contratarCurso/:idcurso", ContratacionesController.contratarAlumno)
+router.post("/aceptarAlumno/:idContratacion", Authorization, ContratacionesController.aceptarAlumno)
+router.post("/rechazarAlumno/:idContratacion", Authorization, ContratacionesController.rechazarAlumno)
+router.post("/finalizarAlumno/:idContratacion", Authorization, ContratacionesController.finalizarAlumno)
+router.get("/alumnosPendientes", Authorization, ContratacionesController.alumnosPendientes) // Alumnos con estado pendiente
+router.get("/getAlumnos", Authorization, ContratacionesController.getAlumnos) // Alumnos activos o finalizados
 
 
 
