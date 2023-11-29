@@ -54,6 +54,7 @@ exports.createUser = async function (new_user) {
         // Verifico que el mail no este registrado
         mail = await this.getuser_by_email(new_user.correo)
         if(mail){
+            console.log(mail)
             return {"error": "El mail ya esta registrado"}
         }
 

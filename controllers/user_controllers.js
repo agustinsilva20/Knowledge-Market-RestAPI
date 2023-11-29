@@ -19,9 +19,11 @@ exports.createUser = async function (req, res, next) {
     try{
         var new_user = await Service.createUser(User)
         if (new_user.error) {
+            console.log(new_user.error)
             return res.status(400).json({status: 400, message: new_user.error})
         }
         token = new_user.token
+        console.log("creado!")
         return res.status(200).json({status: 200, message: "Usuario creado con exito"})
         // Me falta enviarle el token al cliente
 
@@ -54,7 +56,7 @@ exports.loginUser = async function (req, res, next) {
         user = login_user.user
         // Me falta enviarle el token al cliente
         token = login_user.token
-        return res.status(200).json({status: 200, message: "Logeado correctamente"})
+        return res.status(200).json({status: 200, token: login_user.token})
 
     } catch (e) {
         console.log(e)
