@@ -117,3 +117,9 @@ exports.getAnuncioInfo = async function (cursoID) {
 
 }
 
+exports.getPromedio = async function (cursoID) {
+    const query = `SELECT AVG(Calificacion) as avg FROM Comentario WHERE CursoID = ${cursoID} AND Estado = 'PUBLICADO'`;
+    const result = await db.run_query(query)
+    return {"info": result};
+}
+
