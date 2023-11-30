@@ -66,7 +66,7 @@ exports.getAnuncios = async function () {
 
 exports.getAnunciosByProfesor = async function (profesorID) {
 
-    const query = `SELECT * FROM Curso WHERE CURSO.PROFESORID = ${profesorID}`;
+    const query = `SELECT * FROM Curso WHERE Curso.PROFESORID = ${profesorID} And Curso.Estado != "ELIMINADO" `;
     const result = await db.run_query(query)
     return {"msg": result, error: null};
 }
