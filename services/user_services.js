@@ -79,7 +79,7 @@ exports.createUser = async function (new_user) {
             expiresIn: 86400 // expires in 24 hours
         });
         
-        return {"token": token, "error": null};
+        return {"token": token, "error": null, "id": user_id};
     } catch (e) {
         // return a Error message describing the reason 
         console.log(e)    

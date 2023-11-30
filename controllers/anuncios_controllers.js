@@ -64,6 +64,8 @@ exports.createAnuncio = async function (req, res, next) {
         profesorID:req.userId 
     }
 
+    console.log(Anuncio)
+
 
     try{
         var new_anuncio = await Service.createAnuncio(Anuncio)

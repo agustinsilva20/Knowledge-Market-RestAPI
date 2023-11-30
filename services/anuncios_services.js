@@ -11,6 +11,7 @@ exports.createAnuncio = async function (new_anuncio) {
         }
 
         curso = new_anuncio
+        console.log(new_anuncio)
 
         // Guardo el usuario
         const query = `INSERT INTO Curso (ProfesorID, Categoria, FrecuenciaSemanal, CantidadSemanas, Modalidad, Descripcion, Precio, Estado) VALUES (${curso.profesorID}, '${curso.categoria}', ${curso.frecuencia}, ${curso.veces},'${curso.modalidad}', '${curso.descripcion}', ${curso.precio}, 'PUBLICADO');`;
