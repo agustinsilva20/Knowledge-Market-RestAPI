@@ -1,6 +1,6 @@
 const db = require('../bd');
 exports.getCalificaciones = async function (idprofesor) {
-    const query = `SELECT Nombre, Comentario, Calificacion, Comentario.Estado FROM Curso  JOIN Comentario ON Comentario.CursoID = Curso.CursoID WHERE Curso.ProfesorID = ${idprofesor}`;
+    const query = `SELECT ComentarioID, Nombre, Comentario, Calificacion, Comentario.Estado FROM Curso  JOIN Comentario ON Comentario.CursoID = Curso.CursoID WHERE Curso.ProfesorID = ${idprofesor} AND Comentario.Estado != 'NO' `;
     const result = await db.run_query(query)
     return {"msg": result, error: null};
 

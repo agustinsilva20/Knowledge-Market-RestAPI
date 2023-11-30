@@ -35,7 +35,7 @@ exports.alumnosPendientes = async function (profesorID) {
 
 exports.getAlumnos = async function (profesorID) {
     // Obtengo los pendientes
-    const query = `SELECT ContratacionID, Curso.CursoID, Nombre, Telefono, Correo, Contratacion.Estado FROM Contratacion JOIN Curso ON Contratacion.CursoID = Curso.CursoID WHERE Curso.ProfesorID = ${profesorID} AND (Contratacion.Estado = 'PENDIENTE' OR Contratacion.Estado = 'ACTIVO' OR Contratacion.Estado = 'FIN') `
+    const query = `SELECT ContratacionID, Curso.CursoID, Curso.Categoria, Nombre, Telefono, Correo, Contratacion.Estado FROM Contratacion JOIN Curso ON Contratacion.CursoID = Curso.CursoID WHERE Curso.ProfesorID = ${profesorID} AND (Contratacion.Estado = 'PENDIENTE' OR Contratacion.Estado = 'ACTIVO' OR Contratacion.Estado = 'FIN') `
     const result = await db.run_query(query)
     return {"msg": result, error: null};
 }

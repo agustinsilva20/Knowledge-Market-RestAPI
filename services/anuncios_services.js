@@ -58,7 +58,7 @@ exports.changeEstado = async function (new_anuncio, estado) {
 }
 
 exports.getAnuncios = async function () {
-    const query = `SELECT CantidadSemanas, Categoria, Correo, Descripcion, FrecuenciaSemanal, Modalidad, Nombre, Precio FROM Curso JOIN Profesor ON Curso.PROFESORID = Profesor.PROFESORID WHERE Curso.ESTADO = 'PUBLICADO'`;
+    const query = `SELECT CursoID, CantidadSemanas, Categoria, Correo, Descripcion, FrecuenciaSemanal, Modalidad, Nombre, Precio FROM Curso JOIN Profesor ON Curso.PROFESORID = Profesor.PROFESORID WHERE Curso.ESTADO = 'PUBLICADO'`;
     const result = await db.run_query(query)
     return {"msg": result, error: null};
 

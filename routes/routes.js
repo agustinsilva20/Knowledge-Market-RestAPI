@@ -25,7 +25,7 @@ router.get('/getanunciosbyprofesor', Authorization, AnunciosController.getAnunci
 
 
 // Rutas de calificaciones
-router.get('/getcalificaciones/:id', Authorization, CalificacionesController.getCalificaciones)
+router.get('/getcalificaciones/', Authorization, CalificacionesController.getCalificaciones)
 router.post('/createcalificacion/:idcurso', CalificacionesController.createCalificacion)
 router.post('/aceptarCalificacion/:idCalificacion', Authorization, CalificacionesController.aceptarCalificacion)
 router.post('/rechazarCalificacion/:idCalificacion', Authorization, CalificacionesController.rechazarCalificacion)

@@ -4,7 +4,8 @@ exports.getCalificaciones = async function (req, res, next) {
 
     console.log("[INFO] Obteniendo calificaciones")
     try{
-        const docente = req.params.id;
+        //const docente = req.params.id;
+        const docente = req.userId
         var anuncios = await Service.getCalificaciones(docente)
         if (anuncios.error) {
             return res.status(400).json({status: 400, message: anuncios.error})
