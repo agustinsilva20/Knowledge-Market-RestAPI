@@ -14,7 +14,7 @@ exports.createAnuncio = async function (new_anuncio) {
         console.log(new_anuncio)
 
         // Guardo el usuario
-        const query = `INSERT INTO Curso (ProfesorID, Categoria, FrecuenciaSemanal, CantidadSemanas, Modalidad, Descripcion, Precio, Estado) VALUES (${curso.profesorID}, '${curso.categoria}', ${curso.frecuencia}, ${curso.veces},'${curso.modalidad}', '${curso.descripcion}', ${curso.precio}, 'PUBLICADO');`;
+        const query = `INSERT INTO Curso (ProfesorID, Categoria, FrecuenciaSemanal, CantidadSemanas, Modalidad, Descripcion, Precio, Estado, Promedio) VALUES (${curso.profesorID}, '${curso.categoria}', ${curso.frecuencia}, ${curso.veces},'${curso.modalidad}', '${curso.descripcion}', ${curso.precio}, 'PUBLICADO',0);`;
         const result = await db.run_query(query)
 
         return {"msg": "Anuncio creado con exito", error: null};
@@ -58,8 +58,11 @@ exports.changeEstado = async function (new_anuncio, estado) {
 }
 
 exports.getAnuncios = async function () {
-    const query = `SELECT CursoID, CantidadSemanas, Categoria, Correo, Descripcion, FrecuenciaSemanal, Modalidad, Nombre, Precio FROM Curso JOIN Profesor ON Curso.PROFESORID = Profesor.PROFESORID WHERE Curso.ESTADO = 'PUBLICADO'`;
+    const query = `SELECT CursoID, CantidadSemanas, Categoria, Correo, Descripcion, FrecuenciaSemanal, Modalidad, Nombre, Precio, Promedio FROM Curso JOIN Profesor ON Curso.PROFESORID = Profesor.PROFESORID WHERE Curso.ESTADO = 'PUBLICADO'`;
     const result = await db.run_query(query)
+    if (!result || result.length == 0) {
+        return {"msg": [], error: null};
+    }
     return {"msg": result, error: null};
 
 }
@@ -117,7 +120,7 @@ exports.getAnuncioInfo = async function (cursoID) {
 
 }
 
-exports.getPromedio = async function (cursoID) {
+exports.getPromedio_old = async function (cursoID) {
     const query = `SELECT AVG(Calificacion) as avg FROM Comentario WHERE CursoID = ${cursoID} AND Estado = 'PUBLICADO'`;
     const result = await db.run_query(query)
     return {"info": result};

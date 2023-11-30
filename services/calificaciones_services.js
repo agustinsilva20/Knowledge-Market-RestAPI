@@ -26,8 +26,15 @@ exports.updateCalificacion = async function (profesorID, calificacionID, newesta
         return {"error": "El curso no pertenece al profesor o no existe"}
     }
 
+
     const query = `UPDATE Comentario SET estado = '${newestado}' WHERE ComentarioID = ${calificacionID}`;
     const result2 = await db.run_query(query)
+
+    // Si el estado es publicado, actualizo el promedio
+    if (newestado === "PUBLICADO"){
+        const query = `UPDATE Curso SET Promedio = (SELECT AVG(Calificacion) FROM Comentario WHERE Comentario.CursoID = ${result_curso[0].CursoID}) WHERE CURSOID = ${result_curso[0].CursoID}`;
+        const result = await db.run_query(query)
+    }
 
     return {"msg": "Calificacion actualizada con exito", error: null};
 }

@@ -8,38 +8,11 @@ exports.getAnuncios = async function (req, res, next) {
         var anuncios = await Service.getAnuncios()
         var anuncios_y_calificacion = []
 
-        // Obtengo sus calificaciones
-        for (var i = 0; i < anuncios.msg.length; i++) {
-            // Anuncio actual
-            const anuncio = anuncios.msg[i]
-
-            // Obtengo el promedio
-            let promedio = await Service.getPromedio(anuncio.CursoID)
-            console.log(promedio)
-            promedio = promedio.info
-
-            try{
-                promedio = promedio[0].avg
-                if (promedio == null) {
-                    promedio = 0
-                }
-            } catch {
-                promedio = 0
-            }
-            
-
-            // Agrego el valor
-            anuncio.Calificacion = promedio
-    
-            anuncios_y_calificacion.push(anuncio)
-
-        }
-
 
         if (anuncios.error) {
             return res.status(400).json({status: 400, message: anuncios.error})
         }
-        return res.status(200).json({status: 200, message: anuncios_y_calificacion})
+        return res.status(200).json({status: 200, message: anuncios.msg})
 
     } catch (e) {
         console.log(e)
