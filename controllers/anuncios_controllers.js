@@ -78,6 +78,10 @@ exports.createAnuncio = async function (req, res, next) {
 
 
     try{
+        var categorias = ["MUSICA", "MATEMATICA", "HISTORIA", "PROGRAMACION", "INGLES", "FISICA", "QUIMICA", "BIOLOGIA" ]
+        if (!categorias.includes(Anuncio.categoria) ){
+            return res.status(400).json({status: 400, message: "La categoria del anuncio no es valida"})
+        }
         var new_anuncio = await Service.createAnuncio(Anuncio)
         if (new_anuncio.error) {
             return res.status(400).json({status: 400, message: new_anuncio.error})
@@ -174,6 +178,10 @@ exports.updateAnuncio = async function (req, res, next) {
 
 
     try{
+        var categorias = ["MUSICA", "MATEMATICA", "HISTORIA", "PROGRAMACION", "INGLES", "FISICA", "QUIMICA", "BIOLOGIA" ]
+        if (!categorias.includes(Anuncio.categoria) ){
+            return res.status(400).json({status: 400, message: "La categoria del anuncio no es valida"})
+        }
         var new_anuncio = await Service.updateAnuncio(Anuncio)
         if (new_anuncio.error) {
             return res.status(400).json({status: 400, message: new_anuncio.error})
