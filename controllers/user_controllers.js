@@ -75,3 +75,60 @@ exports.loginUser = async function (req, res, next) {
 
 
 }
+
+exports.recuperarPassword = async function (req, res, next) {
+
+    console.log("[INFO] Intentando recuperar password")
+    var mail = req.body.correo
+
+    try{
+        var recuperar_password = await Service.recuperarPassword(mail)
+        if (recuperar_password.error) {
+            return res.status(400).json({status: 400, message: recuperar_password.error})
+        }
+        console.log("codigo", recuperar_password.codigo, " Mail: " , recuperar_password.mail)
+
+        // Enviar el mail
+        await MailService.sendMail(
+            recuperar_password.mail,
+            'Codigo de recupero de password',
+            `Ingrese el codigo: ${recuperar_password.codigo}`)
+
+        return res.status(200).json({status: 200, message: "ok"})
+    }
+    catch (e){
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo recuperar el password"})
+    }
+
+}
+
+exports.recuperarPasswordDos = async function (req, res, next) {
+
+    console.log("[INFO] Intentando cambiar password")
+    var mail = req.body.correo
+    var codigo = req.body.codigo
+    var password = req.body.password
+
+    try{
+        var recuperar_password = await Service.recuperarPasswordDos(mail,codigo,password)
+        if (recuperar_password.error) {
+            return res.status(400).json({status: 400, message: recuperar_password.error})
+        }
+    
+        // Enviar el mail
+        await MailService.sendMail(
+            req.body.correo,
+            'Cambio de contraseña exitoso',
+            `Se cambio su password correctamente`)
+
+        return res.status(200).json({status: 200, message: "ok"})
+    }
+    catch (e){
+        console.log(e)
+        return res.status(400).json({status: 400, message: "No se pudo recuperar el password"})
+    }
+
+
+
+}

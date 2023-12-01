@@ -4,6 +4,15 @@ var jwt = require('jsonwebtoken');
 
 const db = require('../bd');
 
+const getuser_by_email2 = async function (mail) {
+    query = `SELECT * FROM Profesor WHERE Correo = '${mail}'`
+    const savedUser = await db.run_query(query)
+    try{
+        return savedUser[0]
+    }catch(e){
+        return null
+    }}
+
 exports.getuser_by_email = async function (mail) {
     query = `SELECT * FROM Profesor WHERE Correo = '${mail}'`
     const savedUser = await db.run_query(query)
@@ -85,4 +94,63 @@ exports.createUser = async function (new_user) {
         console.log(e)    
         throw Error("Error while Creating User")
     }
+}
+
+
+exports.recuperarPassword = async function (mail) {
+    try {
+        user = await getuser_by_email2(mail)
+        
+        
+        if (!user) {
+            return {"error": "El usuario no existe"}
+        }
+
+        if (user.length == "0") {
+            return {"error": "El usuario no existe"}
+        }
+
+        // Genero el codigo
+        var numeroAleatorio = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+
+
+        query = `INSERT INTO Recupero (ProfesorID, Codigo) VALUES ('${user.ProfesorID}', ${numeroAleatorio})`
+
+        const result = await db.run_query(query)
+    
+        return {"error": null, "mail": user.Correo, "codigo": numeroAleatorio};
+    }
+    catch(e){
+        console.log(e)
+        throw Error("Error recuperando")
+    }
+
+
+
+
+}
+
+exports.recuperarPasswordDos = async function (mail, codigo, password) {
+    try{
+        query = `SELECT * FROM Profesor JOIN Recupero ON Profesor.ProfesorID = Recupero.ProfesorID WHERE Codigo = ${codigo} AND Correo = '${mail}'`
+        const result = await db.run_query(query)
+        console.log(result)
+
+        if (!result) {
+            return {"error": "Codigo incorrecto"}
+        }
+
+        if (result.length == "0") {
+            return {"error": "Codigo incorrecto"}
+        }
+        var hashedPassword = bcrypt.hashSync(password, 8);
+        query = `UPDATE Profesor SET PasswordHash = '${hashedPassword}' WHERE ProfesorID = ${result[0].ProfesorID}`
+        const result2 = await db.run_query(query)
+        return {"error": null}
+    }
+    catch (e){
+        console.log(e)
+        throw Error("Error recuperando")
+    }
+    
 }

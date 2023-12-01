@@ -16,6 +16,8 @@ const upload = multer({ storage: storage });
 // Rutas de Cuenta
 router.post('/crearcuenta', UserController.createUser)
 router.post('/login', UserController.loginUser)
+router.post("/recuperar", UserController.recuperarPassword)
+router.post("/recuperarDos", UserController.recuperarPasswordDos)
 
 // Rutas de Anuncios
 router.post('/crearanuncio', Authorization, upload.single('imagen'), AnunciosController.createAnuncio)

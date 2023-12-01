@@ -84,6 +84,15 @@ query_contratacion = """
 );
 """
 
+query_recupero = """
+  CREATE TABLE IF NOT EXISTS Recupero (
+    RecuperoID INT PRIMARY KEY AUTO_INCREMENT,
+    ProfesorID INT,
+    FOREIGN KEY (ProfesorID) REFERENCES Profesor(ProfesorID),
+    Codigo INT
+  );
+"""
+
 def execute_sql_script(connection, script):
     try:
         cursor = connection.cursor()
@@ -100,10 +109,12 @@ try:
     execute_sql_script(connection, "DROP TABLE Comentario;")
     execute_sql_script(connection, "DROP TABLE Curso;")
     execute_sql_script(connection, "DROP TABLE Profesor;")
+    execute_sql_script(connection, "DROP TABLE Recupero;")
     execute_sql_script(connection, query_profesor)
     execute_sql_script(connection, query_curso)
     execute_sql_script(connection, query_comentario)
     execute_sql_script(connection, query_contratacion)
+    execute_sql_script(connection, query_recupero)
 
     # Cerrar la conexión antes de abrir otra para evitar problemas de caché
     connection.close()
