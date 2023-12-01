@@ -108,8 +108,9 @@ try:
     execute_sql_script(connection, "DROP TABLE Contratacion;")
     execute_sql_script(connection, "DROP TABLE Comentario;")
     execute_sql_script(connection, "DROP TABLE Curso;")
-    execute_sql_script(connection, "DROP TABLE Profesor;")
     execute_sql_script(connection, "DROP TABLE Recupero;")
+    execute_sql_script(connection, "DROP TABLE Profesor;")
+    
     execute_sql_script(connection, query_profesor)
     execute_sql_script(connection, query_curso)
     execute_sql_script(connection, query_comentario)
