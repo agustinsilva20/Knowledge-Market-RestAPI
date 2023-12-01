@@ -1,4 +1,5 @@
 var Service = require('../services/user_services');
+const MailService = require('../services/mail');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -24,6 +25,13 @@ exports.createUser = async function (req, res, next) {
         }
         token = new_user.token
         console.log("creado!")
+
+        // Notifico por mail
+        await MailService.sendMail(
+            User.correo,
+            'Bienvenido a Knowledge',
+            `Bienvenido a la aplicacion Knowledge!`)
+        
 
         return res.status(200).json({status: 200, message: "Usuario creado con exito", token: new_user.token, idCuenta: new_user.id})
         // Me falta enviarle el token al cliente
