@@ -1,3 +1,4 @@
+
 //Express
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -7,9 +8,11 @@ var bluebird = require('bluebird');
 var cors = require('cors');
 
 
+const multer = require('multer');
 
 //importo router
 var indexRouter = require('./routes/routes');
+
 
 //instancio el servidor
 var app = express();
@@ -27,6 +30,10 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 });
+
+
+app.use(express.json({ limit: '20mb' }));
+
 
 
 //Indico las rutas de los endpoint

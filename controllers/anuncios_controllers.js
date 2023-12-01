@@ -1,8 +1,10 @@
 var Service = require('../services/anuncios_services');
+const CloudinaryService = require('../services/cloudinary');
 
 exports.getAnuncios = async function (req, res, next) {
 
     console.log("[INFO] Obteniendo anuncios")
+    
     try{
         // Lista de anuncios
         var anuncios = await Service.getAnuncios()
@@ -57,6 +59,9 @@ exports.getAnunciosByProfesor = async function (req, res, next) {
 exports.createAnuncio = async function (req, res, next) {
 
     console.log("[INFO] Creando nuevo anuncio")
+    const fileBuffer = req.file.buffer; // LINEA NUEVA
+    const urlImg = await CloudinaryService.uploadImage(fileBuffer); // LINEA NUEVA
+    console.log("url image", urlImg)
 
     var Anuncio = {
         categoria: req.body.categoria,
@@ -65,9 +70,10 @@ exports.createAnuncio = async function (req, res, next) {
         modalidad: req.body.modalidad,
         descripcion: req.body.descripcion,
         precio: req.body.precio,
-        profesorID:req.userId 
+        profesorID:req.userId,
+        imagen:urlImg
     }
-
+    
     console.log(Anuncio)
 
 

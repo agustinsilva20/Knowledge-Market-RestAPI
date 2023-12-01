@@ -60,7 +60,7 @@ CREATE TABLE Contratacion (
 """
 
 query_profesor = "CREATE TABLE IF NOT EXISTS Profesor ( ProfesorID INT PRIMARY KEY AUTO_INCREMENT, Nombre VARCHAR(30),Correo VARCHAR(30),Telefono INT, PasswordHash VARCHAR(100));"
-query_curso = "CREATE TABLE IF NOT EXISTS Curso (CursoID INT PRIMARY KEY AUTO_INCREMENT,ProfesorID INT,FOREIGN KEY (ProfesorID) REFERENCES Profesor(ProfesorID),Categoria VARCHAR(15),FrecuenciaSemanal INT,CantidadSemanas INT,Modalidad VARCHAR(15),Descripcion VARCHAR(200),Precio FLOAT, Estado VARCHAR(10), Promedio FLOAT);"
+query_curso = "CREATE TABLE IF NOT EXISTS Curso (CursoID INT PRIMARY KEY AUTO_INCREMENT,ProfesorID INT,FOREIGN KEY (ProfesorID) REFERENCES Profesor(ProfesorID),Categoria VARCHAR(15),FrecuenciaSemanal INT,CantidadSemanas INT,Modalidad VARCHAR(15),Descripcion VARCHAR(200),Precio FLOAT, Estado VARCHAR(10), Promedio FLOAT, Imagen VARCHAR(100));"
 query_comentario = """
   CREATE TABLE IF NOT EXISTS Comentario (
     ComentarioID INT PRIMARY KEY AUTO_INCREMENT,

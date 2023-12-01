@@ -6,7 +6,7 @@ exports.createAnuncio = async function (new_anuncio) {
         // Condiciones previas
 
         // Verifico que todos los campos no esten vacios
-        if (!new_anuncio.categoria || !new_anuncio.frecuencia || !new_anuncio.veces || !new_anuncio.modalidad || !new_anuncio.descripcion || !new_anuncio.precio || !new_anuncio.profesorID) {
+        if (!new_anuncio.categoria || !new_anuncio.frecuencia || !new_anuncio.veces || !new_anuncio.modalidad || !new_anuncio.descripcion || !new_anuncio.precio || !new_anuncio.profesorID || !new_anuncio.imagen ) {
             return {"error": "Faltan campos por rellenar"}
         }
 
@@ -14,7 +14,7 @@ exports.createAnuncio = async function (new_anuncio) {
         console.log(new_anuncio)
 
         // Guardo el usuario
-        const query = `INSERT INTO Curso (ProfesorID, Categoria, FrecuenciaSemanal, CantidadSemanas, Modalidad, Descripcion, Precio, Estado, Promedio) VALUES (${curso.profesorID}, '${curso.categoria}', ${curso.frecuencia}, ${curso.veces},'${curso.modalidad}', '${curso.descripcion}', ${curso.precio}, 'PUBLICADO',0);`;
+        const query = `INSERT INTO Curso (ProfesorID, Categoria, FrecuenciaSemanal, CantidadSemanas, Modalidad, Descripcion, Precio, Estado, Promedio, Imagen) VALUES (${curso.profesorID}, '${curso.categoria}', ${curso.frecuencia}, ${curso.veces},'${curso.modalidad}', '${curso.descripcion}', ${curso.precio}, 'PUBLICADO',0,'${curso.imagen}');`;
         const result = await db.run_query(query)
 
         return {"msg": "Anuncio creado con exito", error: null};
@@ -58,7 +58,7 @@ exports.changeEstado = async function (new_anuncio, estado) {
 }
 
 exports.getAnuncios = async function () {
-    const query = `SELECT CursoID, CantidadSemanas, Categoria, Correo, Descripcion, FrecuenciaSemanal, Modalidad, Nombre, Precio, Promedio FROM Curso JOIN Profesor ON Curso.PROFESORID = Profesor.PROFESORID WHERE Curso.ESTADO = 'PUBLICADO'`;
+    const query = `SELECT CursoID, CantidadSemanas, Categoria, Correo, Descripcion, FrecuenciaSemanal, Modalidad, Nombre, Precio, Promedio, Imagen FROM Curso JOIN Profesor ON Curso.PROFESORID = Profesor.PROFESORID WHERE Curso.ESTADO = 'PUBLICADO'`;
     const result = await db.run_query(query)
     if (!result || result.length == 0) {
         return {"msg": [], error: null};
